@@ -1,0 +1,14 @@
+0. Data Ingestion
+ - document loader 
+ - text splitters - creater chunks
+ - embeddings - converted to numbers
+ - vectorstore - store data 
+
+1. Retrieval 
+embedding user question then find semantic similarity from vectorstore
+
+2. Augmentation 
+created system prompt based on context(similarity vector) + userquestion
+
+3. generation 
+generate answer 
