@@ -1,8 +1,13 @@
 from langchain_core.documents import Document
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_mistralai import MistralAIEmbeddings
+from langchain_classic.retrievers.multi_query import MultiQueryRetriever
+from langchain_mistralai import ChatMistralAI
+from dotenv import load_dotenv
 
-# Maximal Marginal Relevance (MMR)
+
+
+load_dotenv()
 
 docs = [
     Document(page_content="Gradient descent is an optimization algorithm used in machine learning."),
@@ -13,33 +18,26 @@ docs = [
 ]
 
 
-embeddings = HuggingFaceEmbeddings()
-
+embeddings = MistralAIEmbeddings(model="mistral-embed")
 
 vectorstore = Chroma.from_documents(docs, embeddings)
 
+retriever = vectorstore.as_retriever()
 
-similarity_retriever = vectorstore.as_retriever(
-    search_type="similarity",
-    search_kwargs={"k":3}
+
+llm = ChatMistralAI(model="labs-leanstral-1-5")
+
+multi_query_retriever = MultiQueryRetriever.from_llm(
+    retriever=retriever,
+    llm=llm
 )
 
-print("\n===== Similarity Search Results =====\n")
+query = "What is gradient descent?"
 
-similarity_docs = similarity_retriever.invoke("What is gradient descent?")
-
-for doc in similarity_docs:
-    print(doc.page_content)
+docs = multi_query_retriever.invoke(query)
 
 
-mmr_retriever = vectorstore.as_retriever(
-    search_type="mmr",
-    search_kwargs={"k":3}
-)
+print("\nRetrieved Documents:\n")
 
-print("\n===== MMR Results =====\n")
-
-mmr_docs = mmr_retriever.invoke("What is gradient descent?")
-
-for doc in mmr_docs:
+for doc in docs:
     print(doc.page_content)
