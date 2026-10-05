@@ -1,72 +1,48 @@
-# Generative AI & RAG Learning
+# Generative AI & RAG Assistant 
 
-A hands-on learning repository for exploring **Generative AI** and **Retrieval-Augmented Generation (RAG)** using LangChain and Mistral AI.
+A comprehensive, hands-on repository for building, understanding, and scaling **Generative AI** and **Retrieval-Augmented Generation (RAG)** systems using **Python**, **LangChain**, **ChromaDB**, and **Mistral AI**.
 
-The repository will grow progressively as I learn new concepts and implement them through small working examples.
+---
 
-## Learning Progress
+## 🌐 Live Application & Demo
 
-### RAG Fundamentals & Document Loaders
+Experience the production-ready interactive RAG Web Application built with Streamlit and deployed on Render.
 
-**Topics Learned:**
+🔗 **Live App:** [md-aniks.github.io/rag-assistant-ai/](md-aniks.github.io/rag-assistant-ai/)
 
-* Introduction to Retrieval-Augmented Generation (RAG)
-* Understanding the basic RAG workflow
-* Document Loaders in LangChain
-* Loading `.txt` documents with `TextLoader`
-* Extracting document content using `page_content`
-* Creating prompts with `ChatPromptTemplate`
-* Sending document content to a Mistral AI model
-* Generating a summary from the loaded document
+### 📱 Application Preview
+![RAG Assistant Preview](./preview.png)
 
-### Basic Workflow
+---
 
-```text
-Text Document
-     ↓
-TextLoader
-     ↓
-Document Object
-     ↓
-page_content
-     ↓
-Prompt Template
-     ↓
-Mistral AI
-     ↓
-Generated Response
-```
+##  Features
 
+* **Multi-Source Data Ingestion:** Upload multiple PDF documents or scrape live web content using custom URLs simultaneously.
+* **Smart Chunking:** Text processing powered by `RecursiveCharacterTextSplitter` with dynamic chunk size (`1000`) and overlap (`200`).
+* **Mistral Embeddings & ChromaDB:** Vector embeddings powered by `mistral-embed` and indexed in ChromaDB.
+* **MMR Retrieval:** High-relevance, diverse document extraction using Maximal Marginal Relevance (MMR) search (`k=4`, `fetch_k=10`, `lambda_mult=0.5`).
+* **Source Transparency:** Expandable "View Source Context" drawer showing exact chunks and source metadata used for generating answers.
+* **Strict Guardrails:** Configured prompt templates ensuring grounded answers derived strictly from ingested documents.
 
+---
 
-## Learning Roadmap
-
-This repository will be updated continuously as new Generative AI and RAG concepts are learned and implemented.
+##  Complete RAG Architecture Flow
 
 ```text
-RAG Fundamentals
-      ↓
-Document Loaders
-      ↓
-Document Splitting
-      ↓
-Embeddings
-      ↓
-Vector Databases
-      ↓
-ChromaDB
-      ↓
-Similarity Search
-      ↓
-Retrievers
-      ↓
-RAG Pipeline
-      ↓
-Prompt + Retrieved Context
-      ↓
-Mistral AI
-      ↓
-RAG Application
-```
-
-> This repository is a progressive learning journey, with each stage adding new concepts and implementations to the previous ones.
+  [ User Query ]
+        │
+        ▼
+ ┌──────────────┐      Vector Search      ┌──────────────┐
+ │  Retriever   │ ──────────────────────► │  ChromaDB    │
+ └──────────────┘                         └──────────────┘
+        │                                         │
+        │ Fetches Relevant Chunks                 │
+        ▼                                         ▼
+┌────────────────────────────────────────────────────────┐
+│                   Context + Query                      │
+└────────────────────────────────────────────────────────┘
+        │
+        ▼
+ ┌──────────────┐                         ┌──────────────┐
+ │ Chat Prompt  │ ──────────────────────► │ ChatMistralAI│ ──► [ AI Response ]
+ └──────────────┘                         └──────────────┘
