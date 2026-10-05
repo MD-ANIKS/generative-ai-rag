@@ -21,23 +21,17 @@ python-docx
 beautifulsoup4
 unstructured
 
+langchain-text-splitters
+
 # Text Processing
 tiktoken
 
 # Environment Variables
 python-dotenv
 
-# Numerical / ML Dependencies
-numpy
-scikit-learn
-
-# Optional: Hugging Face Models
-transformers
-torch
-
 # Web Application
 streamlit
 
-# API / Deployment
-fastapi
-uvicorn
+beautifulsoup4
+requests
+torchvision
