@@ -45,7 +45,7 @@ PROMPT = ChatPromptTemplate.from_messages(
     ]
 )
 
-st.set_page_config(page_title="RAG Assistant", page_icon="📚", layout="wide")
+st.set_page_config(page_title="RAG Assistant - AI Knowledge Base", page_icon="", layout="wide")
 
 # Light styling that works in both light and dark themes (inherits theme colors)
 st.markdown(
@@ -281,16 +281,16 @@ def sidebar() -> str:
     if st.session_state.stats:
         s = st.session_state.stats
         st.sidebar.markdown(
-            f'<span class="stat-pill">📄 {s["files"]} PDF(s)</span>'
+            f'<span class="stat-pill"> {s["files"]} PDF(s)</span>'
             f'<span class="stat-pill">🌐 {s["urls"]} URL(s)</span>'
-            f'<span class="stat-pill">🧩 {s["chunks"]} chunks</span>',
+            f'<span class="stat-pill"> {s["chunks"]} chunks</span>',
             unsafe_allow_html=True,
         )
 
     st.sidebar.divider()
     model_name = st.sidebar.text_input("Chat model", value=DEFAULT_CHAT_MODEL,
                                        help="e.g. labs-leanstral-1-5 or mistral-small-latest")
-    if st.sidebar.button("🗑️ Clear Session", use_container_width=True):
+    if st.sidebar.button(" Clear Session", use_container_width=True):
         clear_session()
         st.rerun()
     return model_name
